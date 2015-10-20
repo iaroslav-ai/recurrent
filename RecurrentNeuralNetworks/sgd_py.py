@@ -7,7 +7,7 @@ Created on Oct 16, 2015
 import numpy as np
 
 # train network with sgd
-def TrainNetwork(X,Y, network, alpha = 0.001, valchecks = 5, val_fraction = 0.3, C = 0.01):
+def TrainNetwork(X,Y, network, alpha = 0.001, valchecks = 10, val_fraction = 0.3, C = 0.01):
     Wbest = np.copy( network.W )
     ValBest, checks = np.Inf, valchecks
     while checks > 0:

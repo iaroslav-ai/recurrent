@@ -5,11 +5,11 @@ Created on Oct 16, 2015
 '''
 
 import numpy as np
-
+# Simple RNN
 class RNN:
     training = False; # collect data for gradient computation when true
-    def __init__(self, xsz, ysz, neurons):
-        self.W = np.random.randn(neurons+xsz+ysz+1, neurons)*0.001
+    def __init__(self, xsz, ysz, neurons_per_block):
+        self.W = np.random.randn(neurons_per_block+xsz+ysz+1, neurons_per_block)*0.001
         self.xsz = xsz
         self.ysz = ysz
     # compute outputs for given sequence x
