@@ -42,10 +42,11 @@ class CWRNN:
     def backward(self,backprop):
         grad = np.copy( self.W )*0;
         bptt = self.W[0,]*0; # this is responsible for backprop through time
-        for i in range(len(self.activations)-1,-1,-1):
-            bptb = np.zeros(self.npb) # backprop through blocks
-            for b in range(self.blocks-1,-1,-1):
+        for i in range(len(self.activations)-1,-1,-1):# backprop through time
+            bptb = np.zeros(self.npb) 
+            for b in range(self.blocks-1,-1,-1):# backprop through blocks
                 H = self.activations[b][i]
+                # The reverse engineering nightmare below does backpropagation over a single block
                 grad[-self.ysz:, b*self.npb:(b+1)*self.npb] += np.outer( backprop[i,], H )
                 bck = np.dot( backprop[i,], self.W[-self.ysz:,b*self.npb:(b+1)*self.npb] )
                 bck = (bck + bptt[b*self.npb:(b+1)*self.npb] + bptb* (i % 2 ** b == 0)) * (H > 0);
